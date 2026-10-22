@@ -1,0 +1,28 @@
+
+name: Telegram Robot Testi
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/15 * * * *"
+
+jobs:
+  telegram-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - name: Python kur
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Gereken paketi kur
+        run: pip install -r requirements.txt
+
+      - name: Telegram mesajı gönder
+        run: python monitor.py
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
